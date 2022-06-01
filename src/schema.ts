@@ -27,6 +27,10 @@ export const typeDefs = gql`
     category(id: ID!): Category
   }
 
+  type Mutation {
+    addCategory(input: AddCategory!): Category!
+  }
+
   type Review {
     id: ID!
     date: String!
@@ -38,5 +42,9 @@ export const typeDefs = gql`
   input ProductsFilterInput {
     onSales: Boolean
     avgRating: Int
+  }
+
+  input AddCategory {
+    name: String!
   }
 `

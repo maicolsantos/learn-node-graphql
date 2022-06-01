@@ -1,13 +1,4 @@
-import { ProductProps } from '../types/db'
-
-type ReviewsProps = {
-  id: string,
-  date: string,
-  title: string,
-  comment: string,
-  rating: number,
-  productId: string,
-}
+import { ProductProps, ReviewsProps } from '../types/db'
 
 export type CategoryProps = {
   products: ProductProps[]
