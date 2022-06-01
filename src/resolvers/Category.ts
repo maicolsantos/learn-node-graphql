@@ -1,7 +1,17 @@
 import { ProductProps } from '../types/db'
 
+type ReviewsProps = {
+  id: string,
+  date: string,
+  title: string,
+  comment: string,
+  rating: number,
+  productId: string,
+}
+
 export type CategoryProps = {
   products: ProductProps[]
+  reviews: ReviewsProps[]
 }
 
 export const Category = {

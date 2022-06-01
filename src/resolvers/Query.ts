@@ -4,17 +4,39 @@ import { ProductProps } from './Product'
 type ProductsArgsProps = {
   filter?: {
     onSales: boolean
+    avgRating: number
   }
 }
 
 export const Query = {
   hello: () => 'Hello world!!',
   products: (parent: any, args: ProductsArgsProps, context: CategoryProps) => {
+    let filteredProducts = context.products
+
     if (args.filter && args.filter.onSales) {
-      return context.products.filter(product => product.onSale)
+      return filteredProducts.filter(product => product.onSale)
     }
 
-    return context.products
+    if ([1, 2, 3, 4, 5].includes(args.filter?.avgRating || 1)) {
+      filteredProducts = filteredProducts.filter((product) => {
+        let sumRating = 0
+        let numbersOfReviews = 0
+
+        context.reviews.forEach(review => {
+          if (review.productId === product.id) {
+            sumRating += review.rating
+            numbersOfReviews++
+          }
+        })
+
+        const avgProductRating = sumRating / numbersOfReviews
+
+        return avgProductRating >= (args.filter?.avgRating || 1)
+      })
+
+    }
+
+    return filteredProducts
   },
   product: (parent: any, args: { id: string }, context: CategoryProps) => {
     const { id } = args
